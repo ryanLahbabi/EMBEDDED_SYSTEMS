@@ -1,9 +1,12 @@
 # EMBEDDED_SYSTEMS
-Project 1, Software Engineering Bachelor first Year.
+
+## Presentation
+Project 1, Software Engineering Bachelor First Year.
 
 RCxD by the 1617 team of the INF1900 course at the Polytechnic School of Montreal.
 Version: 1.0
 Date: December 7, 2022
+
 Authors:
 * ZGHAL Ahmed
 * LAHBABI Ryan
@@ -35,30 +38,38 @@ o In order to debug, use the command:
 * Choose the desired state using the push button placed on the breadbord.
 * Once the LED shows the color of the route requested, press the push button on the motherboard to confirm the choice.
 
-lib folder
+### lib folder
 This folder has all the classes to control and manipulate the robot and its peripherals.
 Class handling output devices: motor.cpp, del.cpp, sonorite.cpp, usart.cpp, LineSensor.cpp
 Class handling input devices: Button.cpp, Interrupt.cpp, can.cpp
   Class handling the external memory of the robot: memoire_24.cpp and loadingMemoireExterne.cpp
 
-app folder
+### app folder
 This folder is the executable of the robot it includes all the files of the library thanks to the edition of the links and compiles the program in the robot.
 
-Robot.cpp
+### Robot.cpp
 This file is our main class and it implements the Robot object which controls all the states of the robot by following the different steps. Starting from route A, until parking at its respective location in Route B_S. We find in this file a call to different methods available from the library of the lib folder.
 
-Material Handling
+### Material Handling
 The robot is programmed on an Atmega324PA microcontroller board. The devices used are a Cytron LSS05 distance sensor to pick up the poles in course A and a GP2D12 line follower to follow a black line for the entire course.
+
+### Stat Machine
 
 The RCxD is composed of three states: A_VERS_B, B_VERS_S, S_VERS_FIN.
 
-Current     State  Transition Next    State Output
-A_VERS_B    Push   Button B_VERS_S    GREEN LED
-B_VERS_S    Push   Button S_VERS_FIN  RED LED
-S_VERS_FIN  Push   Button A_VERS_B    LED AMBER
+| Current     |State  |Transition Next    |State Output |                                                 
+|-------------|-------|-------------------|-------------|
+| A_VERS_B    |Push   |Button B_VERS_S    |GREEN LED    |                                                 
+| B_VERS_S    |Push   |Button S_VERS_FIN  |RED LED      |                                                 
+| S_VERS_FIN  |Push   |Button A_VERS_B    |LED AMBER    | 
 
 
-PROJECT STATEMENT:
+## PROJECT STATEMENT
+![image](https://user-images.githubusercontent.com/89122986/209289057-4b673f19-c2a6-41d0-a826-b2bf12e24859.png)
+
+<ins> Figure 1: Robot Path Diagram </ins>
+
+
 
 Selection of starting point:
 
@@ -99,23 +110,20 @@ The evaluator chooses a point among {N, O} and places a pole there.
 
 The evaluator can optionally place a last post on a point chosen among {L, K}.
 
-<ins>
-Part 1 (from A):
-</ins>
+### Part 1 (from A):
 
 Once the robot is powered on by the evaluator, the latter will select the starting point A. Once running, the robot must detect and remember the location of the poles using its distance sensor. Each time a pole is detected, the robot stops then emits a sound for one second and then continues to move forward. If the pole detected is close to it (points F, H, K, N) the sound emitted must be high-pitched. If the pole is far (points G, I, L, O), the sound must be serious.
 
 When the robot reaches marker B, it stops. The evaluator will then press the reset button to reset the motherboard. He will then make sure that the robot is well placed. That is to say straddling the segment and the nose on the starting point. It will then select starting point B.
 
-<ins>
-Part 2 (from B):
-</ins>
+### Part 2 (from B):
+
 
 From marker B, the robot starts moving forward, makes a 90 degree turn at point C, then another at point D. It continues and heads towards the fork at point E where it will have to choose the path free of poles . Arrived at J it advances to place its center of rotation vis-à-vis the points K and L. If a pole is on L, it makes a turn of 15 degrees clockwise, pause for a second, makes the opposite turn and continues its path towards M. If a pole is on K instead, it performs the same action sequence, but this time the initial turn is counterclockwise. Finally, if there is no post, it does not turn. Instead, it will have to back up 1.5 inches, pause for a second, then start back towards M. At this point, the robot again chooses the path without a pole. At P, the robot continues to Q and makes a 90 degree turn, then another to R and goes to S. When it gets to S, it does not stop and continues with the third part.
 
-<ins>
-Part 3 (from S):
-</ins>
+
+### Part 3 (from S):
+
 
 The robot continues its line following towards the corridor formed by segments UW and VX. When it arrives at the beginning of this corridor, the robot must change its path following mode. Indeed, rather than following a line, he will have to take the corridor and move inside it by “bouncing” from one segment to another.
 
