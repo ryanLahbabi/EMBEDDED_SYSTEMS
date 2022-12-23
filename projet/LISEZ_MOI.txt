@@ -1,0 +1,162 @@
+RCxD PAR l'équipe 1617 du cours INF1900 à l'école Polytechnique de Montréal.
+Version: 1.0
+Date : 7 Décembre 2022
+Auteurs:
+* ZGHAL Ahmed
+* LAHBABI Ryan
+* MOUCHAHID Ali
+* BLANC Evan
+
+Ce projet a été conçu dans le cadre du projet intégrateur en système embarque du de première anneé (INF1900) en génie logiciel et informatique au sein de l'école Polytechnique de Montréal. 
+
+Utilisation:
+Pour utiliser ce robot, vous avez besoin d'utiliser les six instructions suivantes:
+
+1. Clean la librairie :
+o Dans le dossier projet/lib, utiliser la commande:
+* make clean
+2. Compiler la librairie :
+o Dans le dossier projet/lib, utiliser la commande:
+* make
+3. Clean le dossier app:
+o Dans le dossier projet/app, utiliser la commande:
+* make clean*
+
+4. Compiler et installer l executable sur le robot:
+o Dans le dossier projet/app,utiliser la commande:
+* make install
+o Afin de debogger, utiliser la commande :
+* make debug
+
+5. Pour lancer le parcours:
+o Choisir l etat voulu a l aide du bouton poussoir placee sur le breadbord.
+o Une fois que la DEL donne la couleur du parcours demander, appuyer sur le bouton poussoir de la carte mere, pour confirmer le choix.
+
+Dossier lib
+Ce dossier possede l ensemble des classes afin de contreler et manipuler le robot et ses peripheriques.
+Classe manipulant les peripheriques de sortiee: moteur.cpp, del.cpp, sonorite.cpp, usart.cpp, CapteurLigne.cpp
+Classe manipulant les peripheriques deentreee: Bouton.cpp, Interrupt.cpp, can.cpp
+ Classe manipulant la memoire externe du robote: memoire_24.cpp et chargementMemoireExterne.cpp
+
+Dossier app
+Ce dossier est l�ex�cutable du robot il inclut tous les fichiers de la librairie grace  l edition des liens et compile le programme dans le robot.
+
+Robot.cpp
+Ce fichier est notre classe principale et elle implemente l objet Robot qui controle l ensemble des etats du robot en suivant les differentes etapes. En partant du parcours A, jusqua se garer a son emplacement respectif dans le Parcours B_S. Nous trouvons dans ce fichier un appel a differentes methodes disponible de la librairie du dossier lib.
+
+Materiel Manipuler
+Le robot est programme sur une carte microcontroleur Atmega324PA. Les peripheriques utilises sont un capteur de distance Cytron LSS05 afin de capter les poteaux dans le parcours A et un suiveur de ligne GP2D12 afin de suivre une ligne noire pendant l ensemble du parcours.
+
+Le RCxD est compose de trois etats: A_VERS_B, B_VERS_S, S_VERS_FIN. 
+
+Etat Courant	 Transition	 Etat Suivant		Sortie
+A_VERS_B 	Bouton Poussoir  B_VERS_S 		DEL VERTE
+B_VERS_S 	Bouton Poussoir  S_VERS_FIN 		DEL ROUGE
+S_VERS_FIN 	Bouton Poussoir	 A_VERS_B 		DEL AMBRER
+
+
+ÉNONCÉ DU PROJET:
+
+Sélection du point de départ:
+
+La possibilité de choisir un point de départ a deux utilités. Premièrement, comme il le sera expliquer plus loin, le robot devra être réinitialisé au point B. Après la réinitialisation, il faudra donc indiquer au robot de reprendre à partir du point B. Deuxièmement, choisir un point de départ permet de reprendre une partie de l’épreuve sans avoir à recommencer depuis le début. Cela se fait toutefois à la discrétion de l’évaluateur.
+
+Il existe trois points de départ possibles pour le robot : A, B et S. Chacun de ces points est associé à une couleur.
+
+A : vert
+
+B : rouge
+
+S : ambre
+
+Le mécanisme permettant de choisir le point de départ utilise le bouton Interrupt, le bouton blanc (branché sur le breadboard) et la Del Libre.
+
+
+
+
+Le bouton blanc, qui doit être branché sur le breadboard, permet de changer la sélection. Chaque fois que le bouton est appuyé, la sélection passe au prochain point. L’alternance se fait en boucle. Ainsi, passé le dernier point (S) la sélection revient au premier (A).
+
+
+
+
+La Del Libre indique quel est le point présentement sélectionné. Elle affiche donc la couleur associée au point tel que listé ci-haut.
+
+
+
+
+Le bouton Interrupt sert quant à lui à confirmer la sélection. Lorsqu’il est appuyé, la Del Libre doit clignoter 4 fois par seconde pendant deux secondes puis s’éteindre. Le robot doit ensuite procéder au suivi du parcours à partir du point de départ sélectionné.
+
+
+
+
+Lorsque le robot est mis sous tension ou réinitialisé, la sélection doit initialement être le point A. La Del Libre doit donc être allumée en vert.
+
+
+
+
+Placer un robot pour le départ:
+
+Lorsque le robot est placé sur table, il doit être à cheval sur le segment précédent le marqueur de départ. Le suiveur de ligne doit être directement sur le marqueur de départ.
+
+
+
+
+ 
+
+
+
+Avant de commencer l’épreuve:
+
+Le robot est placé au marqueur de départ A.
+
+L’évaluateur choisit un point parmi {F, G, H, I} et y place un poteau.
+
+L’évaluateur choisit un point parmi {N, O} et y place un poteau.
+
+L’évaluateur peut optionnellement placer un dernier poteau sur un point choisi parmi {L, K}.
+
+
+
+
+Partie 1 (à partir de A):
+
+Une fois le robot mis sous tension par l’évaluateur, ce dernier sélectionnera le point de départ A. Un coup en marche, le robot doit détecter et mémoriser l’emplacement des poteaux à l’aide de son capteur de distance. À chaque fois qu’un poteau est détecté, le robot arrête puis émet un son pendant une seconde puis continue à avancer. Si le poteau détecté est près de lui (points F, H, K, N) le son émis doit être aigu. Si le poteau est loin (points G, I, L, O), le son doit être grave.
+
+
+
+
+Lorsque le robot atteint le marqueur B, il s’arrête. L’évaluateur appuiera alors sur le bouton reset pour réinitialiser la carte mère. Il s’assurera ensuite que le robot est bien placé. C’est-à-dire à cheval sur le segment et le nez sur le point de départ. Il sélectionnera ensuite le point de départ B.
+
+
+
+
+Partie 2 (à partir de B):
+
+Depuis le marqueur B, le robot se met à avancer, effectue un virage à 90 degrés au point C, puis un autre au point D. Il continue et se dirige vers l’embranchement au point E où il devra choisir le chemin exempt de poteau. Arrivé à J il avance pour placer son centre de rotation vis-à-vis les points K et L. Si un poteau se trouve sur L, il effectue un virage de 15 degrés en sens horaire, pause pour une seconde, fait le virage inverse et poursuit sont chemin vers M. Si un poteau se trouve plutôt sur K, il exécute la même séquence d’action, mais cette fois-ci le virage initial est en sens antihoraire. Finalement, s’il n’y a aucun poteau, il ne fait pas de virage. Il devra plutôt reculer de 1.5 pouce, faire une pause d’une seconde, puis repartir en direction de M. Arrivé à ce point, le robot choisit à nouveau le chemin sans poteau. À P, le robot continue vers Q et fait un virage à 90 degrés, puis un autre à R et se dirige vers S. Lorsqu’il arrive à S, il ne s’arrête pas et enchaine avec la troisième partie.
+
+
+
+
+Partie 3 (à partir de S):
+
+Le robot poursuit son suivi de ligne en direction du couloir formé des segments UW et VX. Lorsqu’il arrive au début de ce couloir, le robot doit changer son mode de suivi du parcours. En effet, plutôt que de suivre une ligne, il devra emprunter le couloir et y évoluer à l’intérieur en « rebondissant » d’un segment à l’autre.
+
+
+
+
+Lorsque le couloir se termine, soit au point W, le robot doit rapidement reprendre un suivi de ligne normal sur VX et se rendre jusqu’au point X.
+
+
+
+
+Un coup arrivé à X, le robot doit aussitôt effectuer une manœuvre pour aller se « stationner » entre les 4 points jaunes. Le robot peut pointer soit vers le haut ou le bas de la table. Pourvu qu’il soit le plus possible centré entre les 4 points jaunes.
+
+
+
+
+ 
+
+
+
+Lorsque le robot se trouve dans sa position finale, il émet un son aigu d’une seconde pour indiquer qu’il a terminé.
+ 
