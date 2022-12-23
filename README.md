@@ -1,7 +1,7 @@
 # EMBEDDED_SYSTEMS
 Project 1, Software Engineering Bachelor first Year.
 
-# # RCxD by the 1617 team of the INF1900 course at the Polytechnic School of Montreal.
+RCxD by the 1617 team of the INF1900 course at the Polytechnic School of Montreal.
 Version: 1.0
 Date: December 7, 2022
 Authors:
