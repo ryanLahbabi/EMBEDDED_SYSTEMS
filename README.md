@@ -1,6 +1,6 @@
 # EMBEDDED_SYSTEMS
 
-## Presentation
+## PRESENTATION
 Project 1, Software Engineering Bachelor First Year.
 
 RCxD by the 1617 team of the INF1900 course at the Polytechnic School of Montreal.
