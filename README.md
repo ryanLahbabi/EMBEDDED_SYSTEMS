@@ -26,7 +26,7 @@ o In the project/lib folder, use the command:
 * make
 3. Clean the app folder:
 o In the project/app folder, use the command:
-*make clean*
+*make clean
 
 4. Compile and install the executable on the robot:
 o In the project/app folder, use the command:
