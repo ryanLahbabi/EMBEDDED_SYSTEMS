@@ -53,7 +53,7 @@ This file is our main class and it implements the Robot object which controls al
 ### Material Handling
 The robot is programmed on an Atmega324PA microcontroller board. The devices used are a Cytron LSS05 distance sensor to pick up the poles in course A and a GP2D12 line follower to follow a black line for the entire course.
 
-### Stat Machine
+### State Machine
 
 The RCxD is composed of three states: A_VERS_B, B_VERS_S, S_VERS_FIN.
 
