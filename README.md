@@ -119,7 +119,11 @@ When the robot reaches marker B, it stops. The evaluator will then press the res
 ### Part 2 (from B):
 
 
-From marker B, the robot starts moving forward, makes a 90 degree turn at point C, then another at point D. It continues and heads towards the fork at point E where it will have to choose the path free of poles . Arrived at J it advances to place its center of rotation vis-à-vis the points K and L. If a pole is on L, it makes a turn of 15 degrees clockwise, pause for a second, makes the opposite turn and continues its path towards M. If a pole is on K instead, it performs the same action sequence, but this time the initial turn is counterclockwise. Finally, if there is no post, it does not turn. Instead, it will have to back up 1.5 inches, pause for a second, then start back towards M. At this point, the robot again chooses the path without a pole. At P, the robot continues to Q and makes a 90 degree turn, then another to R and goes to S. When it gets to S, it does not stop and continues with the third part.
+From marker B, the robot starts moving forward, makes a 90 degree turn at point C, then another at point D. It continues and heads towards the fork at point E where it will have to choose the path free of poles . 
+
+Arrived at J it advances to place its center of rotation vis-à-vis the points K and L. If a pole is on L, it makes a turn of 15 degrees clockwise, pause for a second, makes the opposite turn and continues its path towards M. If a pole is on K instead, it performs the same action sequence, but this time the initial turn is counterclockwise. 
+
+Finally, if there is no post, it does not turn. Instead, it will have to back up 1.5 inches, pause for a second, then start back towards M. At this point, the robot again chooses the path without a pole. At P, the robot continues to Q and makes a 90 degree turn, then another to R and goes to S. When it gets to S, it does not stop and continues with the third part.
 
 
 ### Part 3 (from S):
