@@ -42,16 +42,16 @@ o In order to debug, use the command:
 This folder has all the classes to control and manipulate the robot and its peripherals.
 Class handling output devices: motor.cpp, del.cpp, sonorite.cpp, usart.cpp, LineSensor.cpp
 Class handling input devices: Button.cpp, Interrupt.cpp, can.cpp
-  Class handling the external memory of the robot: memoire_24.cpp and loadingMemoireExterne.cpp
+ Class handling the external memory of the robot: memoire_24.cpp and loadingMemoireExterne.cpp
 
 ### app folder
-This folder is the executable of the robot it includes all the files of the library thanks to the edition of the links and compiles the program in the robot.
+This folder is the executable of the robot it includes all the files of the library thanks to the link time and compiles the program in the robot.
 
 ### Robot.cpp
-This file is our main class and it implements the Robot object which controls all the states of the robot by following the different steps. Starting from route A, until parking at its respective location in Route B_S. We find in this file a call to different methods available from the library of the lib folder.
+This file is our main class and it implements the Robot object which controls all the states of the robot by following the different steps. Starting from route A, until parking at its respective location in Route B_S. We find in this file a call to different methods available in the library of the lib folder.
 
 ### Material Handling
-The robot is programmed on an Atmega324PA microcontroller board. The devices used are a Cytron LSS05 distance sensor to pick up the poles in course A and a GP2D12 line follower to follow a black line for the entire course.
+The robot is programmed on an Atmega324PA microcontroller board. The devices used are a Cytron LSS05 distance sensor to pick up the poles in path A and a GP2D12 line follower to follow a black line for the entire path.
 
 ### State Machine
 
@@ -73,7 +73,7 @@ The RCxD is composed of three states: A_VERS_B, B_VERS_S, S_VERS_FIN.
 
 Selection of starting point:
 
-The ability to choose a starting point serves two purposes. First, as will be explained later, the robot will have to be reset at point B. After the reset, the robot will therefore have to be told to resume from point B. Second, choosing a starting point allows you to resume part of the game. the test without having to start over from the beginning. However, this is at the discretion of the assessor.
+The ability to choose a starting point serves two purposes. Firstly, as will be explained later, the robot will have to be reset at point B. After the reset, the robot will therefore have to be told to resume from point B. Secondly, choosing a starting point allows you to resume part of the route. the test without having to start over from the beginning. However, this is at the discretion of the assessor.
 
 There are three possible starting points for the robot: A, B and S. Each of these points is associated with a color.
 
@@ -93,35 +93,29 @@ The Interrupt button is used to confirm the selection. When pressed, the Free LE
 
 When the robot is powered up or reset, the selection should initially be point A. The Free LED should therefore be lit green.
 
-Placing a robot for the start:
-
-When the robot is placed on the table, it must straddle the segment preceding the start marker. The line follower should be directly over the start marker.
-
-
-
 
 Before starting the test:
 
-The robot is placed at start marker A.
+The robot is placed at starting point A.
 
-The evaluator chooses a point among {F, G, H, I} and places a pole there.
+The evaluator chooses a point amongst {F, G, H, I} and places a pole there.
 
-The evaluator chooses a point among {N, O} and places a pole there.
+The evaluator chooses a point amongst {N, O} and places a pole there.
 
-The evaluator can optionally place a last post on a point chosen among {L, K}.
+The evaluator can optionally place a last post on a point chosen amongst {L, K}.
 
 ### Part 1 (from A):
 
-Once the robot is powered on by the evaluator, the latter will select the starting point A. Once running, the robot must detect and remember the location of the poles using its distance sensor. Each time a pole is detected, the robot stops then emits a sound for one second and then continues to move forward. If the pole detected is close to it (points F, H, K, N) the sound emitted must be high-pitched. If the pole is far (points G, I, L, O), the sound must be serious.
+Once the robot is powered on by the evaluator, the latter will select the starting point A. Once running, the robot must detect and remember the location of the poles using its distance sensor. Each time a pole is detected, the robot stops then emits a sound for one second and then continues to move forward. If the pole detected is close to it (points F, H, K, N) the sound emitted must be high-pitched. If the pole is far (points G, I, L, O), the sound must be low-pitched.
 
-When the robot reaches marker B, it stops. The evaluator will then press the reset button to reset the motherboard. He will then make sure that the robot is well placed. That is to say straddling the segment and the nose on the starting point. It will then select starting point B.
+When the robot reaches starting point B, it stops. The evaluator will then press the reset button to reset the motherboard. He will then make sure that the robot is well placed. That is to say straddling the segment and the nose in the starting point. It will then select starting point B.
 
 ### Part 2 (from B):
 
 
-From marker B, the robot starts moving forward, makes a 90 degree turn at point C, then another at point D. It continues and heads towards the fork at point E where it will have to choose the path free of poles . 
+From starting point B, the robot starts moving forward, makes a 90 degree turn at point C, then another at point D. It continues and heads towards the fork at point E where it will have to choose the path free of poles . 
 
-Arrived at J it advances to place its center of rotation vis-à-vis the points K and L. If a pole is on L, it makes a turn of 15 degrees clockwise, pause for a second, makes the opposite turn and continues its path towards M. If a pole is on K instead, it performs the same action sequence, but this time the initial turn is counterclockwise. 
+Arrived at J it advances to place itselt of the center of rotation of points K and L. If a pole is on L, it makes 15 degree turn clockwise, pauses for a second, makes the opposite turn and continues its path towards M. If a pole is on K instead, it performs the same action sequence, but this time the initial turn is counterclockwise. 
 
 Finally, if there is no post, it does not turn. Instead, it will have to back up 1.5 inches, pause for a second, then start back towards M. At this point, the robot again chooses the path without a pole. At P, the robot continues to Q and makes a 90 degree turn, then another to R and goes to S. When it gets to S, it does not stop and continues with the third part.
 
@@ -133,7 +127,7 @@ The robot continues its line following towards the corridor formed by segments U
 
 When the corridor ends, i.e. at point W, the robot must quickly resume normal line following on VX and go to point X.
 
-A hit at X, the robot must immediately perform a maneuver to “park” between the 4 yellow dots. The robot can point either up or down the table. Provided that it is centered as much as possible between the 4 yellow dots.
+When it hits X, the robot must immediately perform a maneuver to “park” between the 4 yellow dots. The robot can point either up or down the table. Provided that it is centered as much as possible between the 4 yellow dots.
 
 
-When the robot is in its final position, it emits a high-pitched one-second sound to indicate that it is finished.
+When the robot is in its final position, it emits a high-pitched three-second sound to indicate that it is the end.
