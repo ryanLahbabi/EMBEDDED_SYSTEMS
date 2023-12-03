@@ -13,7 +13,7 @@ Authors:
 * ZGHAL Ahmed
 * LAHBABI Ryan
 * MOUCHAHID Ali
-* Evan BLANC
+* BLANC Evan
 
 This project was designed as part of the embedded system integrator project of the first year (INF1900) in software and computer engineering at the Polytechnic School of Montreal.
 
