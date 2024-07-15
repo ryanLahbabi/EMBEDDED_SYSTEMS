@@ -33,8 +33,8 @@ o In the project/app folder, use the command:
 4. Compile and install the executable on the robot:
 o In the project/app folder, use the command:
 * make install
-o In order to debug, use the command:
-* make debug
+
+* make debug (if you want to debug)
 
 5. To start the course:
 * Choose the desired state using the push button placed on the breadbord.
